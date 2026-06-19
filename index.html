@@ -123,7 +123,7 @@
         onError(err) { showError('Erro na simulação: ' + err.message); UI.hideProgress(); setButtonState(false); console.error(err); }
       });
     }
-    btnSimulate.addEventListener('click', () => { if (!Simulator.isRunning) runSimulation(); });
+    btnSimulate.addEventListener('click', () => { if (!Simulator.isRunning()) runSimulation(); });
     async function init() {
       UI.initBracketPreview();
       try { const source = await API.loadRatings(); dataSource = source; } catch (err) { console.warn('[API] Fallback:', err.message); }
