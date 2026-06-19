@@ -23,9 +23,8 @@ const PROGRESS_EVERY = 5000;
 /** Gera número aleatório com distribuição de Poisson (algoritmo de Knuth). */
 function poissonRand(lambda) {
   if (lambda <= 0) return 0;
-  const L = Math.exp(-lambda);
-  let k = 0, p = 1;
-  do { k++; p *= Math.random(); } while (p > L);
+  let k = 0, p = 0;
+    do { k++; p -= Math.log(Math.random()); } while (p < lambda);
   return k - 1;
 }
 
@@ -228,7 +227,7 @@ function playRound(round, nextPhase, phaseReached, losersCollector) {
 
 self.onmessage = function ({ data }) {
   const { groups, simulations } = data;
-  const N = simulations || 100_000;
+  const N = simulations || 50_000;
 
   // Inicializa contadores
   const allNames = Object.values(groups).flat().map(t => t.name);
