@@ -46,6 +46,16 @@ const API = (() => {
     'Costa Rica':          'Costa Rica',
     'Trinidad and Tobago': 'Trinidad & Tobago',
     'Trinidad & Tobago':   'Trinidad & Tobago',
+    'Czech Republic':      'Czechia',
+    'Bosnia and Herzegovina': 'Bosnia & Herzegovina',
+    'Bosnia & Herzegovina': 'Bosnia & Herzegovina',
+    'Cape Verde':          'Cape Verde',
+    'Cabo Verde':          'Cape Verde',
+    'Curaçao':             'Curaçao',
+    'Curacao':             'Curaçao',
+    'Iran':                'Iran',
+    'IR Iran':             'Iran',
+    'Islamic Republic of Iran': 'Iran',
   };
 
   /** Normaliza o nome do país para o padrão de data/groups.js. */

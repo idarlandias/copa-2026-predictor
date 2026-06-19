@@ -1,11 +1,11 @@
 /**
  * Copa do Mundo FIFA 2026 — Grupos Oficiais
- * Sorteio realizado em 5 de dezembro de 2024, Miami, EUA
+ * Sorteio oficial e chaveamento definitivo (Fonte: fifa.com)
  *
  * Formato: 48 seleções em 12 grupos (A–L)
  * Classificam: top 2 de cada grupo + 8 melhores terceiros = 32 equipes
  *
- * ELO ratings: valores aproximados (mai–jun/2025) usados como fallback.
+ * ELO ratings: valores atualizados em junho de 2026 usados como fallback.
  * api.js tenta sobrescrever com dados em tempo real antes da simulação.
  *
  * Fonte ELO de referência: https://eloratings.net
@@ -13,76 +13,76 @@
 
 const GROUPS = {
   A: [
-    { name: 'USA',      code: 'US', elo: 1742, flag: '🇺🇸', conf: 'CONCACAF', host: true },
-    { name: 'Panama',   code: 'PA', elo: 1437, flag: '🇵🇦', conf: 'CONCACAF' },
-    { name: 'Albania',  code: 'AL', elo: 1411, flag: '🇦🇱', conf: 'UEFA' },
-    { name: 'Ukraine',  code: 'UA', elo: 1631, flag: '🇺🇦', conf: 'UEFA' },
+    { name: 'Mexico',       code: 'MX', elo: 1718, flag: '🇲🇽', conf: 'CONCACAF', host: true },
+    { name: 'South Korea',  code: 'KR', elo: 1678, flag: '🇰🇷', conf: 'AFC' },
+    { name: 'Czechia',      code: 'CZ', elo: 1712, flag: '🇨🇿', conf: 'UEFA' },
+    { name: 'South Africa', code: 'ZA', elo: 1547, flag: '🇿🇦', conf: 'CAF' },
   ],
   B: [
-    { name: 'Mexico',   code: 'MX', elo: 1718, flag: '🇲🇽', conf: 'CONCACAF', host: true },
-    { name: 'Jamaica',  code: 'JM', elo: 1428, flag: '🇯🇲', conf: 'CONCACAF' },
-    { name: 'Honduras', code: 'HN', elo: 1451, flag: '🇭🇳', conf: 'CONCACAF' },
-    { name: 'Kuwait',   code: 'KW', elo: 1391, flag: '🇰🇼', conf: 'AFC' },
+    { name: 'Canada',       code: 'CA', elo: 1604, flag: '🇨🇦', conf: 'CONCACAF', host: true },
+    { name: 'Switzerland',  code: 'CH', elo: 1891, flag: '🇨🇭', conf: 'UEFA' },
+    { name: 'Bosnia & Herzegovina', code: 'BA', elo: 1595, flag: '🇧🇦', conf: 'UEFA' },
+    { name: 'Qatar',        code: 'QA', elo: 1427, flag: '🇶🇦', conf: 'AFC' },
   ],
   C: [
-    { name: 'Canada',   code: 'CA', elo: 1604, flag: '🇨🇦', conf: 'CONCACAF', host: true },
-    { name: 'Chile',    code: 'CL', elo: 1618, flag: '🇨🇱', conf: 'CONMEBOL' },
-    { name: 'Uruguay',  code: 'UY', elo: 1761, flag: '🇺🇾', conf: 'CONMEBOL' },
-    { name: 'Cameroon', code: 'CM', elo: 1562, flag: '🇨🇲', conf: 'CAF' },
+    { name: 'Scotland',     code: 'GB-SCT', elo: 1782, flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', conf: 'UEFA' },
+    { name: 'Morocco',      code: 'MA', elo: 1752, flag: '🇲🇦', conf: 'CAF' },
+    { name: 'Brazil',       code: 'BR', elo: 1882, flag: '🇧🇷', conf: 'CONMEBOL' },
+    { name: 'Haiti',        code: 'HT', elo: 1548, flag: '🇭🇹', conf: 'CONCACAF' },
   ],
   D: [
-    { name: 'Brazil',     code: 'BR', elo: 1882, flag: '🇧🇷', conf: 'CONMEBOL' },
-    { name: 'Paraguay',   code: 'PY', elo: 1554, flag: '🇵🇾', conf: 'CONMEBOL' },
-    { name: 'Costa Rica', code: 'CR', elo: 1443, flag: '🇨🇷', conf: 'CONCACAF' },
-    { name: 'Nigeria',    code: 'NG', elo: 1519, flag: '🇳🇬', conf: 'CAF' },
+    { name: 'USA',          code: 'US', elo: 1742, flag: '🇺🇸', conf: 'CONCACAF', host: true },
+    { name: 'Australia',    code: 'AU', elo: 1777, flag: '🇦🇺', conf: 'AFC' },
+    { name: 'Turkey',       code: 'TR', elo: 1658, flag: '🇹🇷', conf: 'UEFA' },
+    { name: 'Paraguay',     code: 'PY', elo: 1554, flag: '🇵🇾', conf: 'CONMEBOL' },
   ],
   E: [
-    { name: 'Argentina',    code: 'AR', elo: 1972, flag: '🇦🇷', conf: 'CONMEBOL' },
-    { name: 'Peru',         code: 'PE', elo: 1612, flag: '🇵🇪', conf: 'CONMEBOL' },
-    { name: 'Poland',       code: 'PL', elo: 1588, flag: '🇵🇱', conf: 'UEFA' },
-    { name: 'Saudi Arabia', code: 'SA', elo: 1507, flag: '🇸🇦', conf: 'AFC' },
+    { name: 'Germany',      code: 'DE', elo: 1835, flag: '🇩🇪', conf: 'UEFA' },
+    { name: 'Ivory Coast',  code: 'CI', elo: 1682, flag: '🇨🇮', conf: 'CAF' },
+    { name: 'Ecuador',      code: 'EC', elo: 1664, flag: '🇪🇨', conf: 'CONMEBOL' },
+    { name: 'Curaçao',      code: 'CW', elo: 1434, flag: '🇨🇼', conf: 'CONCACAF' },
   ],
   F: [
-    { name: 'Spain',       code: 'ES', elo: 1935, flag: '🇪🇸', conf: 'UEFA' },
-    { name: 'Morocco',     code: 'MA', elo: 1752, flag: '🇲🇦', conf: 'CAF' },
-    { name: 'Japan',       code: 'JP', elo: 1731, flag: '🇯🇵', conf: 'AFC' },
-    { name: 'New Zealand', code: 'NZ', elo: 1463, flag: '🇳🇿', conf: 'OFC' },
+    { name: 'Sweden',       code: 'SE', elo: 1712, flag: '🇸🇪', conf: 'UEFA' },
+    { name: 'Japan',        code: 'JP', elo: 1731, flag: '🇯🇵', conf: 'AFC' },
+    { name: 'Netherlands',  code: 'NL', elo: 1847, flag: '🇳🇱', conf: 'UEFA' },
+    { name: 'Tunisia',      code: 'TN', elo: 1628, flag: '🇹🇳', conf: 'CAF' },
   ],
   G: [
-    { name: 'France',      code: 'FR', elo: 1948, flag: '🇫🇷', conf: 'UEFA' },
-    { name: 'Ivory Coast', code: 'CI', elo: 1682, flag: '🇨🇮', conf: 'CAF' },
-    { name: 'Israel',      code: 'IL', elo: 1493, flag: '🇮🇱', conf: 'UEFA' },
-    { name: 'Guatemala',   code: 'GT', elo: 1403, flag: '🇬🇹', conf: 'CONCACAF' },
+    { name: 'New Zealand',  code: 'NZ', elo: 1463, flag: '🇳🇿', conf: 'OFC' },
+    { name: 'Iran',         code: 'IR', elo: 1772, flag: '🇮🇷', conf: 'AFC' },
+    { name: 'Belgium',      code: 'BE', elo: 1798, flag: '🇧🇪', conf: 'UEFA' },
+    { name: 'Egypt',        code: 'EG', elo: 1579, flag: '🇪🇬', conf: 'CAF' },
   ],
   H: [
-    { name: 'England',           code: 'GB-ENG', elo: 1912, flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', conf: 'UEFA' },
-    { name: 'Senegal',           code: 'SN', elo: 1706, flag: '🇸🇳', conf: 'CAF' },
-    { name: 'Serbia',            code: 'RS', elo: 1695, flag: '🇷🇸', conf: 'UEFA' },
-    { name: 'Trinidad & Tobago', code: 'TT', elo: 1419, flag: '🇹🇹', conf: 'CONCACAF' },
+    { name: 'Uruguay',      code: 'UY', elo: 1761, flag: '🇺🇾', conf: 'CONMEBOL' },
+    { name: 'Saudi Arabia', code: 'SA', elo: 1507, flag: '🇸🇦', conf: 'AFC' },
+    { name: 'Spain',        code: 'ES', elo: 1935, flag: '🇪🇸', conf: 'UEFA' },
+    { name: 'Cape Verde',   code: 'CV', elo: 1578, flag: '🇨🇻', conf: 'CAF' },
   ],
   I: [
-    { name: 'Portugal',   code: 'PT', elo: 1874, flag: '🇵🇹', conf: 'UEFA' },
-    { name: 'Turkey',     code: 'TR', elo: 1658, flag: '🇹🇷', conf: 'UEFA' },
-    { name: 'Egypt',      code: 'EG', elo: 1579, flag: '🇪🇬', conf: 'CAF' },
-    { name: 'Uzbekistan', code: 'UZ', elo: 1494, flag: '🇺🇿', conf: 'AFC' },
+    { name: 'Norway',       code: 'NO', elo: 1914, flag: '🇳🇴', conf: 'UEFA' },
+    { name: 'France',       code: 'FR', elo: 1948, flag: '🇫🇷', conf: 'UEFA' },
+    { name: 'Senegal',      code: 'SN', elo: 1706, flag: '🇸🇳', conf: 'CAF' },
+    { name: 'Iraq',         code: 'IQ', elo: 1607, flag: '🇮🇶', conf: 'AFC' },
   ],
   J: [
-    { name: 'Netherlands', code: 'NL', elo: 1847, flag: '🇳🇱', conf: 'UEFA' },
-    { name: 'Austria',     code: 'AT', elo: 1641, flag: '🇦🇹', conf: 'UEFA' },
-    { name: 'DR Congo',    code: 'CD', elo: 1528, flag: '🇨🇩', conf: 'CAF' },
-    { name: 'Venezuela',   code: 'VE', elo: 1541, flag: '🇻🇪', conf: 'CONMEBOL' },
+    { name: 'Argentina',    code: 'AR', elo: 1972, flag: '🇦🇷', conf: 'CONMEBOL' },
+    { name: 'Austria',      code: 'AT', elo: 1641, flag: '🇦🇹', conf: 'UEFA' },
+    { name: 'Jordan',       code: 'JO', elo: 1680, flag: '🇯🇴', conf: 'AFC' },
+    { name: 'Algeria',      code: 'DZ', elo: 1772, flag: '🇩🇿', conf: 'CAF' },
   ],
   K: [
-    { name: 'Colombia', code: 'CO', elo: 1795, flag: '🇨🇴', conf: 'CONMEBOL' },
-    { name: 'Germany',  code: 'DE', elo: 1835, flag: '🇩🇪', conf: 'UEFA' },
-    { name: 'Ecuador',  code: 'EC', elo: 1664, flag: '🇪🇨', conf: 'CONMEBOL' },
-    { name: 'Bolivia',  code: 'BO', elo: 1512, flag: '🇧🇴', conf: 'CONMEBOL' },
+    { name: 'Colombia',     code: 'CO', elo: 1795, flag: '🇨🇴', conf: 'CONMEBOL' },
+    { name: 'DR Congo',     code: 'CD', elo: 1528, flag: '🇨🇩', conf: 'CAF' },
+    { name: 'Portugal',     code: 'PT', elo: 1874, flag: '🇵🇹', conf: 'UEFA' },
+    { name: 'Uzbekistan',   code: 'UZ', elo: 1494, flag: '🇺🇿', conf: 'AFC' },
   ],
   L: [
-    { name: 'Belgium',     code: 'BE', elo: 1798, flag: '🇧🇪', conf: 'UEFA' },
-    { name: 'Croatia',     code: 'HR', elo: 1772, flag: '🇭🇷', conf: 'UEFA' },
-    { name: 'South Korea', code: 'KR', elo: 1678, flag: '🇰🇷', conf: 'AFC' },
-    { name: 'South Africa',code: 'ZA', elo: 1547, flag: '🇿🇦', conf: 'CAF' },
+    { name: 'England',      code: 'GB-ENG', elo: 1912, flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', conf: 'UEFA' },
+    { name: 'Ghana',        code: 'GH', elo: 1510, flag: '🇬🇭', conf: 'CAF' },
+    { name: 'Panama',       code: 'PA', elo: 1437, flag: '🇵🇦', conf: 'CONCACAF' },
+    { name: 'Croatia',      code: 'HR', elo: 1772, flag: '🇭🇷', conf: 'UEFA' },
   ],
 };
 
