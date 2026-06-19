@@ -522,3 +522,96 @@ h3 { font-size: 1rem; font-weight: 600; }
 .section:nth-child(2) { animation-delay: .05s; }
 .section:nth-child(3) { animation-delay: .10s; }
 .section:nth-child(4) { animation-delay: .15s; }
+
+/* ─── Modal de Identificação ─── */
+.modal-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 13, 26, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrap.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.2rem 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-card h2 {
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+}
+
+.modal-card p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.6rem;
+  line-height: 1.5;
+}
+
+#name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#visitor-name {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.7rem 1.2rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  text-align: center;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+#visitor-name:focus {
+  border-color: var(--gold);
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--green), var(--green-light));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+.btn-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+}

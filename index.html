@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
@@ -93,7 +101,10 @@
       </span>
       Copa do Mundo 2026 — Preditor IA
     </h1>
-    <p class="header-sub">Monte Carlo · Elo Ratings · 50.000 simulações</p>
+    <p class="header-sub">
+      <span id="welcome-message" style="display:none; color: var(--gold); font-weight: 600; margin-right: 0.5rem;"></span>
+      Monte Carlo · Elo Ratings · 50.000 simulações
+    </p>
     <p class="header-author"><span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span></p>
     <button id="btn-simulate" class="btn-simulate" aria-label="Iniciar nova simulação">
       <span class="idle">Simular Novamente</span>
@@ -199,13 +210,62 @@
       });
     }
     btnSimulate.addEventListener('click', () => { if (!Simulator.isRunning()) runSimulation(); });
+    
+    function checkUserIdentification() {
+      const modal = document.getElementById('name-modal');
+      const form = document.getElementById('name-form');
+      const nameInput = document.getElementById('visitor-name');
+      const welcomeMsg = document.getElementById('welcome-message');
+      
+      const savedName = localStorage.getItem('visitorName');
+      if (savedName) {
+        welcomeMsg.textContent = `Olá, ${savedName}! ·`;
+        welcomeMsg.style.display = 'inline';
+        
+        // Envia evento de retorno de usuário para o GA4
+        if (typeof gtag === 'function') {
+          gtag('event', 'user_return', { 'visitor_name': savedName });
+        }
+      } else {
+        modal.classList.remove('hidden');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = nameInput.value.trim();
+          if (name) {
+            localStorage.setItem('visitorName', name);
+            welcomeMsg.textContent = `Olá, ${name}! ·`;
+            welcomeMsg.style.display = 'inline';
+            modal.classList.add('hidden');
+            
+            // Envia evento de identificação de novo usuário para o GA4
+            if (typeof gtag === 'function') {
+              gtag('event', 'user_identification', { 'visitor_name': name });
+            }
+          }
+        });
+      }
+    }
+
     async function init() {
       UI.initBracketPreview();
+      checkUserIdentification();
       try { const source = await API.loadRatings(); dataSource = source; } catch (err) { console.warn('[API] Fallback:', err.message); }
       runSimulation();
     }
     init();
   </script>
+
+  <!-- Modal de Identificação -->
+  <div id="name-modal" class="modal-wrap hidden">
+    <div class="modal-card">
+      <h2>🏆 Bem-vindo ao Preditor Copa 2026!</h2>
+      <p>Para visualizar as simulações e as probabilidades de cada seleção, nos diga seu primeiro nome para registrar sua visita:</p>
+      <form id="name-form">
+        <input type="text" id="visitor-name" placeholder="Digite seu primeiro nome" required maxlength="25" autocomplete="given-name">
+        <button type="submit" class="btn-submit">Entrar no Simulador</button>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
