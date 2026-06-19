@@ -9,12 +9,73 @@
   <title>Copa 2026 — Preditor IA</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
-    .header-logo {
-      height: 1.2em;
-      width: auto;
+    .logo-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       vertical-align: middle;
-      margin-right: 0.5em;
+      margin-right: 0.3em;
+      height: 1.2em;
+      width: 1.2em;
+      overflow: visible;
+    }
+    .header-logo {
+      height: 100%;
+      width: auto;
       display: inline-block;
+    }
+    .player-emoji {
+      position: absolute;
+      left: -1.2em;
+      font-size: 0.8em;
+      opacity: 0;
+      pointer-events: none;
+      display: inline-block;
+    }
+    
+    /* Ativa ao passar o mouse no título ou na logo */
+    .logo-wrapper:hover .player-emoji,
+    h1:hover .player-emoji {
+      animation: kick-player 1.8s ease-out;
+    }
+    .logo-wrapper:hover .header-logo,
+    h1:hover .header-logo {
+      animation: kick-ball 1.8s ease-out;
+    }
+
+    /* Animação de embaixadinha (juggle) durante simulação */
+    .logo-wrapper.simulating .header-logo {
+      animation: juggle-ball 1.2s infinite ease-in-out;
+    }
+    .logo-wrapper.simulating .player-emoji {
+      animation: none;
+      opacity: 0;
+    }
+
+    @keyframes kick-player {
+      0% { transform: translateX(-0.8em) scale(0.5); opacity: 0; }
+      25% { transform: translateX(0) scale(1); opacity: 1; }
+      35% { transform: translateX(0.15em) scale(1.1); opacity: 1; }
+      60% { transform: translateX(-0.6em) scale(0.8); opacity: 0; }
+      100% { transform: translateX(-0.8em) scale(0.5); opacity: 0; }
+    }
+
+    @keyframes kick-ball {
+      0% { transform: translateX(0) rotate(0deg); }
+      30% { transform: translateX(0) rotate(0deg); }
+      35% { transform: translateX(0.1em) rotate(15deg); }
+      60% { transform: translateX(6em) rotate(720deg); }
+      75% { transform: translateX(5.2em) rotate(660deg); }
+      90% { transform: translateX(0) rotate(360deg); }
+      100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    @keyframes juggle-ball {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-12px) rotate(90deg); }
+      50% { transform: translateY(0) rotate(180deg); }
+      75% { transform: translateY(-8px) rotate(270deg); }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +86,13 @@
 
 <body>
   <header class="site-header">
-    <h1><img src="favicon.png" alt="Bola de Futebol Copa 2026" class="header-logo"> Copa do Mundo 2026 — Preditor IA</h1>
+    <h1>
+      <span id="logo-wrapper" class="logo-wrapper">
+        <span class="player-emoji">🏃‍♂️</span>
+        <img src="favicon.png" alt="Bola de Futebol Copa 2026" class="header-logo">
+      </span>
+      Copa do Mundo 2026 — Preditor IA
+    </h1>
     <p class="header-sub">Monte Carlo · Elo Ratings · 50.000 simulações</p>
     <p class="header-author"><span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span></p>
     <button id="btn-simulate" class="btn-simulate" aria-label="Iniciar nova simulação">
@@ -113,7 +180,12 @@
     let dataSource = 'fallback';
     function showError(msg) { errorBanner.textContent = msg; errorBanner.classList.remove('hidden'); }
     function hideError() { errorBanner.classList.add('hidden'); }
-    function setButtonState(running) { btnSimulate.disabled = running; btnSimulate.classList.toggle('running', running); }
+    const logoWrapper = document.getElementById('logo-wrapper');
+    function setButtonState(running) {
+      btnSimulate.disabled = running;
+      btnSimulate.classList.toggle('running', running);
+      if (logoWrapper) logoWrapper.classList.toggle('simulating', running);
+    }
     function runSimulation() {
       hideError(); setButtonState(true);
       Simulator.run({
