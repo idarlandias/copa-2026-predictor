@@ -266,7 +266,8 @@
       try { const source = await API.loadRatings(); dataSource = source; } catch (err) { console.warn('[API] Fallback:', err.message); }
       runSimulation();
     }
-    init();
+    
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 
   <!-- Modal de Identificação -->
