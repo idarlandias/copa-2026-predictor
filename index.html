@@ -102,7 +102,8 @@
       Copa do Mundo 2026 — Preditor IA
     </h1>
     <p class="header-sub">
-      <span id="welcome-message" style="display:none; color: var(--gold); font-weight: 600; margin-right: 0.5rem;"></span>
+      <span id="welcome-message" style="display:none; color: var(--gold); font-weight: 600; margin-right: 0.2rem;"></span>
+      <a href="#" id="change-name-link" style="display:none; color: var(--text-muted); cursor: pointer; text-decoration: underline; margin-right: 0.6rem; font-size: 0.75rem;">(Alterar)</a>
       Monte Carlo · Elo Ratings · 50.000 simulações
     </p>
     <p class="header-author"><span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span></p>
@@ -216,11 +217,23 @@
       const form = document.getElementById('name-form');
       const nameInput = document.getElementById('visitor-name');
       const welcomeMsg = document.getElementById('welcome-message');
+      const changeNameLink = document.getElementById('change-name-link');
+      
+      // Associa clique para alterar nome
+      changeNameLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('visitorName');
+        welcomeMsg.style.display = 'none';
+        changeNameLink.style.display = 'none';
+        nameInput.value = '';
+        modal.classList.remove('hidden');
+      });
       
       const savedName = localStorage.getItem('visitorName');
       if (savedName) {
-        welcomeMsg.textContent = `Olá, ${savedName}! ·`;
+        welcomeMsg.textContent = `Olá, ${savedName}!`;
         welcomeMsg.style.display = 'inline';
+        changeNameLink.style.display = 'inline';
         
         // Envia evento de retorno de usuário para o GA4
         if (typeof gtag === 'function') {
@@ -233,8 +246,9 @@
           const name = nameInput.value.trim();
           if (name) {
             localStorage.setItem('visitorName', name);
-            welcomeMsg.textContent = `Olá, ${name}! ·`;
+            welcomeMsg.textContent = `Olá, ${name}!`;
             welcomeMsg.style.display = 'inline';
+            changeNameLink.style.display = 'inline';
             modal.classList.add('hidden');
             
             // Envia evento de identificação de novo usuário para o GA4
