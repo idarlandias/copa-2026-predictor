@@ -225,7 +225,17 @@ h3 { font-size: 1rem; font-weight: 600; }
   min-width: 0;
 }
 
-.bar-flag { font-size: 1.4rem; flex-shrink: 0; display: inline-block; width: 1.8rem; text-align: center; }
+.bar-flag { font-size: 1.4rem; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; }
+
+.flag-icon {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  vertical-align: middle;
+  display: inline-block;
+}
 .bar-name { font-size: .82rem; font-weight: 600; truncate; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .bar-track {
@@ -316,9 +326,11 @@ h3 { font-size: 1rem; font-weight: 600; }
 
 .team-cell span:first-child {
   font-size: 1.2rem;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 1.6rem;
-  text-align: center;
+  height: 1.6rem;
   flex-shrink: 0;
 }
 
@@ -364,7 +376,7 @@ h3 { font-size: 1rem; font-weight: 600; }
 .group-team.maybe      { border-left: 3px solid var(--gold); }
 .group-team.eliminated { border-left: 3px solid #475569; opacity: .7; }
 
-.group-flag { font-size: 1.3rem; display: inline-block; width: 1.5rem; text-align: center; }
+.group-flag { font-size: 1.3rem; display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; }
 .group-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .group-prob { color: var(--gold); font-weight: 700; font-size: .8rem; }
 .group-elo  { color: var(--text-muted); font-size: .72rem; }
@@ -453,8 +465,9 @@ h3 { font-size: 1rem; font-weight: 600; }
 
 .bracket-team span:first-child {
   font-size: 1.3rem;
-  display: inline-block;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bname { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

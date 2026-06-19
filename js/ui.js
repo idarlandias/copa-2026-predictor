@@ -59,6 +59,16 @@ const UI = (() => {
     return null;
   }
 
+  /** Retorna a tag img da bandeira a partir do flagcdn para compatibilidade com Windows. */
+  function getFlagHtml(team) {
+    if (!team) return '🏳️';
+    if (team.code) {
+      const codeLower = team.code.toLowerCase();
+      return `<img src="https://flagcdn.com/w40/${codeLower}.png" alt="${team.name}" class="flag-icon">`;
+    }
+    return team.flag || '🏳️';
+  }
+
   // ─── Progresso ────────────────────────────────────────────────────────────
 
   function showProgress({ pct: p, done, total }) {
@@ -104,13 +114,13 @@ const UI = (() => {
     container.style.overflowY = 'auto';
     container.innerHTML = ranked.map(({ name, prob }) => {
       const team  = teamByName(name);
-      const flag  = team?.flag || '🏳️';
+      const flagHtml = getFlagHtml(team);
       const width = ((prob / maxProb) * 100).toFixed(1);
       const pctStr = pct(prob, 1);
       return `
         <div class="bar-row">
           <div class="bar-team">
-            <span class="bar-flag">${flag}</span>
+            <span class="bar-flag">${flagHtml}</span>
             <span class="bar-name">${name}</span>
           </div>
           <div class="bar-track">
@@ -155,14 +165,14 @@ const UI = (() => {
       })
       .map(row => {
         const team = teamByName(row.name);
-        const flag = team?.flag || '🏳️';
+        const flagHtml = getFlagHtml(team);
         const cells = PHASES.map(phase => {
           const val = row[phase] || 0;
           const bg  = heatColor(val);
           return `<td style="background:${bg}">${pct(val, 1)}</td>`;
         }).join('');
         return `<tr>
-          <td class="team-cell"><span>${flag}</span> ${row.name}</td>
+          <td class="team-cell"><span>${flagHtml}</span> ${row.name}</td>
           ${cells}
         </tr>`;
       }).join('');
@@ -202,9 +212,10 @@ const UI = (() => {
         .sort((a, b) => b.r32Prob - a.r32Prob)
         .map((team, i) => {
           const qualified = i < 2 ? 'qualified' : i === 2 ? 'maybe' : 'eliminated';
+          const flagHtml = getFlagHtml(team);
           return `
             <div class="group-team ${qualified}">
-              <span class="group-flag">${team.flag}</span>
+              <span class="group-flag">${flagHtml}</span>
               <span class="group-name">${team.name}</span>
               <span class="group-prob">${pct(team.r32Prob, 0)}</span>
               <span class="group-elo">Elo ${team.elo}</span>
@@ -318,10 +329,11 @@ const UI = (() => {
       const items = roundTeams.map((team, ti) => {
         const champProb = probs ? pct(probs[team.name]?.Champion || 0, 1) : '';
         const sfProb    = probs ? pct(probs[team.name]?.SF || 0, 0)        : '';
+        const flagHtml = getFlagHtml(team);
         return `
           <div class="bracket-match ${ri === visibleRounds.length - 1 ? 'champion' : ''}">
             <div class="bracket-team" title="Campeão: ${champProb}">
-              <span>${team.flag}</span>
+              <span>${flagHtml}</span>
               <span class="bname">${team.name}</span>
               ${ri === visibleRounds.length - 1
                 ? `<span class="bprob champion-star">🏆 ${champProb}</span>`
