@@ -199,7 +199,7 @@ h3 { font-size: 1rem; font-weight: 600; }
   min-width: 0;
 }
 
-.bar-flag { font-size: 1.2rem; flex-shrink: 0; }
+.bar-flag { font-size: 1.4rem; flex-shrink: 0; display: inline-block; width: 1.8rem; text-align: center; }
 .bar-name { font-size: .82rem; font-weight: 600; truncate; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .bar-track {
@@ -285,7 +285,15 @@ h3 { font-size: 1rem; font-weight: 600; }
   padding-left: .8rem !important;
   display: flex;
   align-items: center;
-  gap: .3rem;
+  gap: .5rem;
+}
+
+.team-cell span:first-child {
+  font-size: 1.2rem;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 /* ─── 3. Cards de Grupos ─────────────────────────────────────────────────── */
@@ -330,7 +338,7 @@ h3 { font-size: 1rem; font-weight: 600; }
 .group-team.maybe      { border-left: 3px solid var(--gold); }
 .group-team.eliminated { border-left: 3px solid #475569; opacity: .7; }
 
-.group-flag { font-size: 1.1rem; }
+.group-flag { font-size: 1.3rem; display: inline-block; width: 1.5rem; text-align: center; }
 .group-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .group-prob { color: var(--gold); font-weight: 700; font-size: .8rem; }
 .group-elo  { color: var(--text-muted); font-size: .72rem; }
@@ -410,11 +418,17 @@ h3 { font-size: 1rem; font-weight: 600; }
 
 .bracket-team {
   display: grid;
-  grid-template-columns: 1.4rem 1fr auto;
+  grid-template-columns: 1.6rem 1fr auto;
   align-items: center;
-  gap: .35rem;
+  gap: .4rem;
   padding: .45rem .6rem;
   font-size: .8rem;
+}
+
+.bracket-team span:first-child {
+  font-size: 1.3rem;
+  display: inline-block;
+  text-align: center;
 }
 
 .bname { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
