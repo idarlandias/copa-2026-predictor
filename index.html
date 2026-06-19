@@ -117,7 +117,7 @@
     function runSimulation() {
       hideError(); setButtonState(true);
       Simulator.run({
-        simulations: 100000,
+        simulations: 50000,
         onProgress({ pct, done, total }) { UI.showProgress({ pct, done, total }); },
         onResult({ probabilities, elapsed, simulations }) { UI.renderResults(probabilities, elapsed, simulations, dataSource); setButtonState(false); },
         onError(err) { showError('Erro na simulação: ' + err.message); UI.hideProgress(); setButtonState(false); console.error(err); }
