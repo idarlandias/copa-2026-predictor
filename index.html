@@ -2,38 +2,36 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Simulador Monte Carlo da Copa do Mundo FIFA 2026 — probabilidade de cada seleção ser campeã, baseado em ratings Elo e 100.000 simulações." />
+    content="Simulador Monte Carlo da Copa do Mundo FIFA 2026 — probabilidade de cada seleção ser campeã, baseado em ratings Elo e 100.000 simulações.">
   <title>Copa 2026 — Preditor IA</title>
   /png" href="favicon.png">
   <!-- Preconnect para Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="css/style.css" />
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  /style.css">
 </head>
 
 <body>
 
-  <!-- ─── Header ──────────────────────────────────────────────────────────── -->
+  <!-- Header -->
   <header class="site-header">
-    <h1>⚽ Copa do Mundo 2026 — Preditor IA</h1>
+    <h1>Copa do Mundo 2026 — Preditor IA</h1>
     <p class="header-sub">Monte Carlo · Elo Ratings · 100.000 simulações</p>
     <p class="header-author">
-      <span class="author-badge">👨‍💻 Idarlan Magalhães — Cientista de Dados &amp; IA</span>
+      <span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span>
     </p>
-
     <button id="btn-simulate" class="btn-simulate" aria-label="Iniciar nova simulação">
-      <span class="idle">▶ Simular Novamente</span>
-      <span class="spin">⟳</span>
-      <span class="spin"> Simulando…</span>
+      <span class="idle">Simular Novamente</span>
+      <span class="spin"></span>
+      <span class="spin">Simulando…</span>
     </button>
   </header>
 
-  <!-- ─── Progresso ────────────────────────────────────────────────────────── -->
+  <!-- Progresso -->
   <div id="progress-wrap" class="hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100">
     <div id="progress-label">Preparando simulação…</div>
     <div id="progress-bar-track">
@@ -41,36 +39,34 @@
     </div>
   </div>
 
-  <!-- ─── Meta ─────────────────────────────────────────────────────────────── -->
+  <!-- Meta -->
   <div id="sim-meta" class="hidden" aria-live="polite"></div>
 
-  <!-- ─── Conteúdo Principal ──────────────────────────────────────────────── -->
+  <!-- Conteúdo Principal -->
   <main class="main-content">
 
     <!-- Alerta de erro -->
     <div id="error-banner" class="error-banner hidden" role="alert"></div>
 
-    <!-- 1. Gráfico: Probabilidade de Título -->
+    <!-- 1. Gráfico Probabilidade de Título -->
     <section class="section loading">
       <div class="section-title">
         <span class="section-icon">🏆</span>
         <h2>Probabilidade de Ser Campeã</h2>
       </div>
       <div id="chart-container" aria-label="Gráfico de barras com probabilidade de título por seleção">
-        <p style="color:var(--text-muted);text-align:center;padding:2rem">
-          Aguardando simulação…
-        </p>
+        <p style="color:var(--text-muted);text-align:center;padding:2rem">Aguardando simulação…</p>
       </div>
     </section>
 
-    <!-- 2. Tabela: Probabilidade por Fase -->
+    <!-- 2. Tabela Probabilidade por Fase -->
     <section class="section loading">
       <div class="section-title">
         <span class="section-icon">📊</span>
         <h2>Probabilidade por Fase</h2>
       </div>
       <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">
-        Clique em qualquer coluna para ordenar. Probabilidade de cada seleção <em>alcançar</em> a fase.
+        Clique em qualquer coluna para ordenar. Probabilidade de cada seleção em alcançarem a fase.
       </p>
       <div class="table-wrap">
         <table id="phase-table" aria-label="Tabela de probabilidades por fase">
@@ -82,13 +78,12 @@
               <th>Quartas</th>
               <th>Semi</th>
               <th>Final</th>
-              <th>Campeão</th>
+              <th>Campeã</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem">
-                Aguardando simulação…
+              <td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem">Aguardando simulação…
               </td>
             </tr>
           </tbody>
@@ -96,70 +91,61 @@
       </div>
     </section>
 
-    <!-- 3. Cards: Grupos -->
+    <!-- 3. Cards Grupos -->
     <section class="section loading">
       <div class="section-title">
         <span class="section-icon">🗂️</span>
         <h2>Classificação por Grupo</h2>
       </div>
       <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.8rem">
-        Probabilidade de classificação para o R32 em cada grupo. Borda
-        <span style="color:var(--green-light)">verde</span> = favorito ·
+        Probabilidade de classificação para o R32 em cada grupo.
+        Borda <span style="color:var(--green-light)">verde</span> = favorito ·
         <span style="color:var(--gold)">dourado</span> = terceiro viável.
       </p>
       <div id="groups-container"></div>
     </section>
 
-    <!-- 4. Bracket: Chaveamento Esperado -->
+    <!-- 4. Bracket Chaveamento Esperado -->
     <section class="section">
       <div class="section-title">
         <span class="section-icon">🎯</span>
-        <h2>Bracket Esperado (Quartas → Final)</h2>
+        <h2>Bracket Esperado — Quartas de Final</h2>
       </div>
       <div id="bracket-container">
-        <p style="color:var(--text-muted);text-align:center;padding:2rem">
-          Carregando bracket…
-        </p>
+        <p style="color:var(--text-muted);text-align:center;padding:2rem">Carregando bracket…</p>
       </div>
     </section>
 
   </main>
 
-  <!-- ─── Footer ───────────────────────────────────────────────────────────── -->
+  <!-- Footer -->
   <footer class="site-footer">
     <p>
-      Modelo: Monte Carlo + Elo Ratings · Dados:
+      Modelo Monte Carlo · Elo Ratings · Dados:
       <a href="https://eloratings.net" target="_blank" rel="noopener">eloratings.net</a> ·
-      Grupos: FIFA Copa 2026 (sorteio dez/2024) ·
+      Grupos FIFA Copa 2026 (sorteio dez/2024) ·
       Desenvolvido por <strong>Idarlan Magalhães</strong>
     </p>
-    <p style="margin-top:.3rem">
-      Resultados são probabilísticos — não previsões determinísticas.
-    </p>
+    <p style="margin-top:.3rem">Resultados são probabilísticos, não previsões determinísticas.</p>
   </footer>
 
-  <!-- ─── Scripts (ordem importa: groups → api → simulator → ui → main) ─── -->
+  <!-- Scripts — ordem importa: groups → api → simulator → ui → main -->
   <script src="data/groups.js"></script>
   <script src="js/api.js"></script>
   <script src="js/simulator.js"></script>
   <script src="js/ui.js"></script>
-
   <script>
-    // ─── Orquestração Principal ─────────────────────────────────────────────
     const btnSimulate = document.getElementById('btn-simulate');
     const errorBanner = document.getElementById('error-banner');
-
     let dataSource = 'fallback';
 
     function showError(msg) {
-      errorBanner.textContent = `⚠️ ${msg}`;
+      errorBanner.textContent = msg;
       errorBanner.classList.remove('hidden');
     }
-
     function hideError() {
       errorBanner.classList.add('hidden');
     }
-
     function setButtonState(running) {
       btnSimulate.disabled = running;
       btnSimulate.classList.toggle('running', running);
@@ -168,21 +154,17 @@
     function runSimulation() {
       hideError();
       setButtonState(true);
-
       Simulator.run({
         simulations: 100_000,
-
         onProgress({ pct, done, total }) {
           UI.showProgress({ pct, done, total });
         },
-
         onResult({ probabilities, elapsed, simulations }) {
-          UI.renderResults(probabilities, { elapsed, simulations, source: dataSource });
+          UI.renderResults(probabilities, elapsed, simulations, dataSource);
           setButtonState(false);
         },
-
         onError(err) {
-          showError(`Erro na simulação: ${err.message}`);
+          showError('Erro na simulação: ' + err.message);
           UI.hideProgress();
           setButtonState(false);
           console.error(err);
@@ -191,24 +173,18 @@
     }
 
     btnSimulate.addEventListener('click', () => {
-      if (!Simulator.isRunning()) runSimulation();
+      if (!Simulator.isRunning) runSimulation();
     });
 
-    // ─── Inicialização ──────────────────────────────────────────────────────
     async function init() {
-      // Mostra o bracket com dados Elo antes de qualquer simulação
       UI.initBracketPreview();
-
-      // Tenta buscar ratings da API (não bloqueia o início da simulação)
       try {
-        const { source } = await API.loadRatings();
+        const source = await API.loadRatings();
         dataSource = source;
-        console.info(`[API] Ratings carregados — fonte: ${source}`);
+        console.info('[API] Ratings carregados, fonte:', source);
       } catch (err) {
         console.warn('[API] Usando ratings de fallback:', err.message);
       }
-
-      // Inicia a primeira simulação automaticamente
       runSimulation();
     }
 
