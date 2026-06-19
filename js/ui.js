@@ -93,14 +93,15 @@ const UI = (() => {
     const container = document.getElementById('chart-container');
     if (!container) return;
 
-    // Ordena por probabilidade de título, pega top 20
+    // Ordena por probabilidade de título — todas as 48 seleções
     const ranked = Object.entries(probs)
       .map(([name, phases]) => ({ name, prob: phases.Champion || 0 }))
-      .sort((a, b) => b.prob - a.prob)
-      .slice(0, 20);
+      .sort((a, b) => b.prob - a.prob);
 
     const maxProb = ranked[0]?.prob || 1;
 
+    container.style.maxHeight = '700px';
+    container.style.overflowY = 'auto';
     container.innerHTML = ranked.map(({ name, prob }) => {
       const team  = teamByName(name);
       const flag  = team?.flag || '🏳️';
