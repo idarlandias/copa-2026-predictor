@@ -1,5 +1,4 @@
-﻿@'
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -8,16 +7,25 @@
   <meta name="description"
     content="Simulador Monte Carlo da Copa do Mundo FIFA 2026 — probabilidade de cada seleção ser campeã, baseado em ratings Elo e 100.000 simulações.">
   <title>Copa 2026 — Preditor IA</title>
-  /png" href="favicon.png">
-  //fonts.googleapis.com">
-  //fonts.gstatic.com" crossorigin>
-  //fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  /style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    .header-logo {
+      height: 1.2em;
+      width: auto;
+      vertical-align: middle;
+      margin-right: 0.5em;
+      display: inline-block;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header class="site-header">
-    <h1>Copa do Mundo 2026 — Preditor IA</h1>
+    <h1><img src="favicon.png" alt="Bola de Futebol Copa 2026" class="header-logo"> Copa do Mundo 2026 — Preditor IA</h1>
     <p class="header-sub">Monte Carlo · Elo Ratings · 100.000 simulações</p>
     <p class="header-author"><span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span></p>
     <button id="btn-simulate" class="btn-simulate" aria-label="Iniciar nova simulação">
@@ -126,4 +134,3 @@
 </body>
 
 </html>
-'@ | Set-Content "index.html" -Encoding UTF8
