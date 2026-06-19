@@ -98,11 +98,37 @@ h3 { font-size: 1rem; font-weight: 600; }
 
 .btn-simulate:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-.btn-simulate .spin { animation: spin 1s linear infinite; display: none; }
-.btn-simulate.running .spin { display: inline; }
-.btn-simulate.running .idle { display: none; }
+.btn-simulate .spinner-icon {
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
 
-@keyframes spin { to { transform: rotate(360deg); } }
+.btn-simulate.running .spinner-icon {
+  display: inline-block;
+}
+
+.btn-simulate .loading-text {
+  display: none;
+}
+
+.btn-simulate.running .loading-text {
+  display: inline;
+}
+
+.btn-simulate.running .idle {
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 /* ─── Barra de Progresso ─────────────────────────────────────────────────── */
 #progress-wrap {

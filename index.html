@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -30,8 +30,8 @@
     <p class="header-author"><span class="author-badge">Idarlan Magalhães — Cientista de Dados &amp; IA</span></p>
     <button id="btn-simulate" class="btn-simulate" aria-label="Iniciar nova simulação">
       <span class="idle">Simular Novamente</span>
-      <span class="spin"></span>
-      <span class="spin">Simulando…</span>
+      <span class="spinner-icon"></span>
+      <span class="loading-text">Simulando…</span>
     </button>
   </header>
   <div id="progress-wrap" class="hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -119,7 +119,10 @@
       Simulator.run({
         simulations: 50000,
         onProgress({ pct, done, total }) { UI.showProgress({ pct, done, total }); },
-        onResult({ probabilities, elapsed, simulations }) { UI.renderResults(probabilities, elapsed, simulations, dataSource); setButtonState(false); },
+        onResult({ probabilities, elapsed, simulations }) {
+          UI.renderResults(probabilities, { elapsed, simulations, source: dataSource });
+          setButtonState(false);
+        },
         onError(err) { showError('Erro na simulação: ' + err.message); UI.hideProgress(); setButtonState(false); console.error(err); }
       });
     }
